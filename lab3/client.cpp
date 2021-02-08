@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <windows.networking.sockets.h>
 #pragma comment(lib, "Ws2_32.lib")
 
@@ -23,24 +24,37 @@ int main()
     SvrAddr.sin_port = htons(27000);
     SvrAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
     //SvrAddr.sin_addr.s_addr = inet_addr("159.203.26.94");
-    if ((connect(ClientSocket, (struct sockaddr*)&SvrAddr, sizeof(SvrAddr))) == SOCKET_ERROR) {
-        std::cout << "Failed to connect to server" << std::endl; 
+    if ((connect(ClientSocket, (struct sockaddr*)&SvrAddr,
+                    sizeof(SvrAddr))) == SOCKET_ERROR) {
+        std::cout << "Failed to connect to server" << std::endl;
         closesocket(ClientSocket);
         WSACleanup();
         return 0;
     }
 
-    char TxBuffer[128] = {};
-    std::cout << "Enter a String to transmit" << std::endl;
-    std::cin >> TxBuffer;
-    send(ClientSocket, TxBuffer, sizeof(TxBuffer), 0);
-
     char RxBuffer[128] = {};
     recv(ClientSocket, RxBuffer, sizeof(RxBuffer), 0);
-    std::cout << "Response: " << RxBuffer << std::endl;
+    if (!strcmp(RxBuffer, "Full")) {
+        std::cout << "Server full" << std::endl;
+        return 0;
+    }
+    else {
+        std::string TxBuffer;
+        while (true) {
+            std::cout << "Enter a string ([q]):" << std::endl;
+            std::getline(std::cin, TxBuffer);
+            send(ClientSocket, TxBuffer.c_str(), TxBuffer.length(), 0);
+            memset(RxBuffer, 0, sizeof(RxBuffer));
+            recv(ClientSocket, RxBuffer, sizeof(RxBuffer), 0);
+            std::cout << "Rx: " << RxBuffer << std::endl;
+            if (TxBuffer == "[q]")
+                break;
+        }
+    }
 
     closesocket(ClientSocket);
     WSACleanup();
 
     return 0;
 }
+  
