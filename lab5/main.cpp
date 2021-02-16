@@ -5,7 +5,7 @@
 
 int main() {
 	std::string message = "Hello";
-  //uncomment these lines, and comment lines 20 to 25 to test the server part
+  	//uncomment these lines, and comment lines 20 to 25 to test the server part
 	/*Server_TCP server("127.0.0.1", 28000);
 	
 	server.create_socket();
