@@ -14,7 +14,6 @@ public:
 	bool remove_vector(std::string);
 	bool append_vector(std::string);
 	bool print_vector(std::string);
-	void print_vectors();
 };
 
 class Vector {
@@ -31,6 +30,5 @@ public:
 	friend bool List::remove_vector(std::string);
 	friend bool List::append_vector(std::string);
 	friend bool List::print_vector(std::string);
-	friend void List::print_vectors();
 };
 
