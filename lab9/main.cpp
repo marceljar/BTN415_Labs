@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-struct packet {
+struct new_packet {
     char number;
     unsigned char urg : 1;
     unsigned char ack : 1;
@@ -24,17 +24,17 @@ void display(unsigned char byte) {
     std::cout << std::endl;
 }
 
-unsigned char calculate_packet_crc(packet my_packet) {
+unsigned char calculate_packet_crc(new_packet my_packet) {
     //write your code here
 }
 
-unsigned int calculate_packet_checksum(packet my_packet) {
+unsigned int calculate_packet_checksum(new_packet my_packet) {
     //write your code here
 }
 
 int main() {
 
-    packet my_packet;
+    new_packet my_packet;
 
     my_packet.number = 1;
     my_packet.urg = 0;
