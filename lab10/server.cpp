@@ -3,7 +3,6 @@
 #include "socket.h"
 
 int main() {
-	std::string message = "Hello";
 	new_packet recovered_packet;
 
 	Server_TCP server("127.0.0.1", 27000);
@@ -14,14 +13,15 @@ int main() {
 	std::cout << "Waiting for a client to connect." << std::endl;
 	server.accept_connection();
 
-	server.receive_packet(recovered_packet);
+	server.receive_new_packet(recovered_packet);
 	std::cout << "Packet number: " << recovered_packet.number << std::endl;
 	std::cout << "Packet ack: " << recovered_packet.ack << std::endl;
-	std::cout << "Packet size: " << recovered_packet.size << std::endl;
+	std::cout << "Packet size: " << recovered_packet.size<< std::endl;
 	for (int i = 0; i < recovered_packet.size; i++) {
-		std::cout << "Packet letter: " << i << " " << recovered_packet.letters[i] << std::endl;
+		std::cout << recovered_packet.data[i];
 	}
-  std::cout << "Packet CRC: " << recovered_packet.crc << std::endl;
+	std::cout << std::endl;
+	std::cout << "Packet crc: " << recovered_packet.crc << std::endl;
 	server.send_message("Got your message!");
 	
 	return 0;
