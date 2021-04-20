@@ -8,8 +8,8 @@ int main() {
 
 	//these lines are useful to test your serializer and deserializer
 	//without requiring to run two applications
-	struct serialized_packet serialized_data = packet_serializer(my_packet);
-	data_packet recovered = packet_deserializer(serialized_data.data);
+	struct serialized_packet serialized_data = data_packet_serializer(my_packet);
+	data_packet recovered = data_packet_deserializer(serialized_data.data);
 
 	std::string message;
 	Client_TCP client;
