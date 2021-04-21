@@ -19,6 +19,14 @@ int main() {
 		std::cout << recovered_packet.data[i];
 	}
 	std::cout << std::endl;
+	
+	bool data_check = check_crc(recovered_packet);
+	if (data_check) {
+		std::cout << "Data is fine!" << std::endl;
+	} else {
+		std::cout << "Data has been corrupted" << std::endl;
+	}
+	
 	server.send_message("Got your message!");
 
 	return 0;
